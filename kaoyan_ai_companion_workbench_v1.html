@@ -1,0 +1,711 @@
+<div id="ky">
+<style>
+#ky{--bg:#f6f7f9;--card:#fff;--line:#e5e7eb;--txt:#1f2328;--sub:#6b7280;--p:#2563eb;--p2:#eef4ff;--red:#e5484d;--grn:#12a594;--amb:#f59e0b;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+background:var(--bg);color:var(--txt);border-radius:12px;overflow:hidden;font-size:13px;line-height:1.55;
+height:660px;display:flex;flex-direction:column;border:1px solid var(--line);position:relative}
+#ky *{box-sizing:border-box}
+#ky .toast{position:absolute;top:52px;left:50%;transform:translateX(-50%);background:#1f2328;color:#fff;font-size:12px;
+padding:6px 12px;border-radius:8px;opacity:0;transition:.25s;pointer-events:none;z-index:99;max-width:80%}
+#ky .hd{background:#fff;border-bottom:1px solid var(--line);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#ky .brand{font-weight:700;font-size:14px}
+#ky .badge{font-size:10px;font-weight:500;color:var(--p);background:var(--p2);padding:2px 6px;border-radius:5px;margin-left:6px;vertical-align:middle}
+#ky .hchips{display:flex;gap:6px;flex-wrap:wrap}
+#ky .hchip{font-size:11px;color:var(--sub);background:#f3f4f6;padding:3px 8px;border-radius:20px}
+#ky .hchip b{color:var(--txt)}
+#ky .tabs{display:flex;gap:2px;padding:8px 10px 0;background:#fff;border-bottom:1px solid var(--line);overflow-x:auto}
+#ky .tab{border:none;background:transparent;padding:7px 11px;font-size:12.5px;color:var(--sub);cursor:pointer;border-radius:8px 8px 0 0;white-space:nowrap;font-family:inherit}
+#ky .tab.on{background:var(--p2);color:var(--p);font-weight:600}
+#ky .view{flex:1;overflow-y:auto;padding:12px}
+#ky .view::-webkit-scrollbar{width:6px}
+#ky .view::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:3px}
+#ky .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:720px){#ky .grid2{grid-template-columns:1fr}}
+#ky .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin-bottom:10px}
+#ky .card h4{margin:0 0 8px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+#ky .card h4 em{font-style:normal;font-size:10px;font-weight:500;color:var(--sub);background:#f3f4f6;padding:1px 6px;border-radius:4px}
+#ky .row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px dashed #f0f1f3}
+#ky .row:last-child{border-bottom:none}
+#ky .row>span:first-child{color:var(--sub);font-size:12px;flex:1}
+#ky .rv{display:flex;align-items:center;gap:6px}
+#ky input,#ky select{border:1px solid var(--line);border-radius:7px;padding:4px 7px;font-size:12px;font-family:inherit;color:var(--txt);background:#fff;outline:none}
+#ky input:focus,#ky select:focus{border-color:var(--p)}
+#ky input[type=time]{width:92px}
+#ky input[type=number]{width:66px}
+#ky input[type=text],#ky textarea{width:100%}
+#ky textarea{border:1px solid var(--line);border-radius:8px;padding:7px;font-size:12.5px;font-family:inherit;resize:vertical;outline:none}
+#ky textarea:focus{border-color:var(--p)}
+#ky .btn{border:1px solid var(--line);background:#fff;color:var(--txt);padding:5px 11px;border-radius:7px;font-size:12px;cursor:pointer;font-family:inherit}
+#ky .btn:hover{border-color:#c7cdd6;background:#fafbfc}
+#ky .btn.pri{background:var(--p);border-color:var(--p);color:#fff;font-weight:600}
+#ky .btn.sm{padding:3px 8px;font-size:11px}
+#ky .btn.warn{color:var(--red);border-color:#fbd5d6}
+#ky .btn.grn{color:#0d9488;border-color:#cceceb}
+#ky .tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;font-weight:600;line-height:1.6}
+#ky .t-high{background:#fee2e2;color:#b91c1c}
+#ky .t-mid{background:#fef3c7;color:#a16207}
+#ky .t-low{background:#e5e7eb;color:#4b5563}
+#ky .t-ky{background:#e0e7ff;color:#3730a3}
+#ky .t-qm{background:#fce7f3;color:#9d174d}
+#ky .t-new{background:#dcfce7;color:#166534}
+#ky .t-rev{background:#ede9fe;color:#5b21b6}
+#ky .t-rest{background:#f1f5f9;color:#64748b}
+#ky .t-frag{background:#cffafe;color:#155e75}
+#ky .muted{color:var(--sub);font-size:11.5px}
+#ky .empty{text-align:center;color:var(--sub);padding:24px 0;font-size:12px}
+#ky .dbar{height:5px;background:#eef0f3;border-radius:3px;overflow:hidden;margin-top:4px}
+#ky .dbar i{display:block;height:100%;background:var(--p);border-radius:3px}
+#ky .day{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 11px;margin-bottom:8px}
+#ky .dayhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+#ky .dayhd b{font-size:12.5px}
+#ky .tsk{display:flex;align-items:center;gap:7px;padding:3px 0;font-size:12px;border-bottom:1px dashed #f2f3f5}
+#ky .tsk:last-child{border-bottom:none}
+#ky .tm{color:var(--sub);font-variant-numeric:tabular-nums;font-size:11px;min-width:80px}
+#ky .flex{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+#ky .stat{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+@media(max-width:720px){#ky .stat{grid-template-columns:repeat(2,1fr)}}
+#ky .statbox{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 10px}
+#ky .statbox b{display:block;font-size:18px;line-height:1.2;font-variant-numeric:tabular-nums}
+#ky .statbox span{font-size:11px;color:var(--sub)}
+#ky .qa{background:#fafbfc;border:1px solid var(--line);border-radius:9px;padding:9px 10px;margin-bottom:8px}
+#ky .qa .q{font-weight:600;font-size:12.5px;margin-bottom:6px}
+#ky .warnbox{background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:8px 10px;font-size:12px;color:#92400e;margin-bottom:10px}
+#ky .okbox{background:#f0fdfa;border:1px solid #99f6e4;border-radius:9px;padding:8px 10px;font-size:12px;color:#0f766e;margin-bottom:10px}
+#ky .sep{height:1px;background:var(--line);margin:9px 0}
+#ky .it{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed #f0f1f3}
+#ky .it:last-child{border-bottom:none}
+#ky .it b{font-size:12.5px;font-weight:600}
+#ky .mk{font-size:11px;color:var(--sub)}
+</style>
+
+<div class="toast" id="kytoast"></div>
+<div class="hd">
+  <div class="brand">考研 AI 陪伴监督工作台<span class="badge">v1.0 · 云端沙箱</span></div>
+  <div class="hchips" id="kyhead"></div>
+</div>
+<div class="tabs" id="kytabs"></div>
+<div class="view" id="kyview"></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var HEAVY=["新课","看书","视频","大题"];
+var PRIW={high:3,mid:2,low:1};
+var TABS=[{k:"setup",n:"基础信息设置"},{k:"sched",n:"课表管理"},{k:"mats",n:"资料库"},{k:"plan",n:"每周规划"},{k:"today",n:"每日任务&打卡"},{k:"review",n:"复盘记录"}];
+
+function T(s){if(!s)return 0;var a=String(s).split(":");return (+a[0])*60+(+(a[1]||0));}
+function M(m){m=Math.max(0,Math.round(m));return ("0"+Math.floor(m/60)).slice(-2)+":"+("0"+(m%60)).slice(-2);}
+function fmtH(m){m=Math.round(m);var h=Math.floor(m/60),r=m%60;return h+"h"+(r?r+"m":"");}
+function today(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
+function addDays(ds,n){var d=new Date(ds+"T00:00:00");d.setDate(d.getDate()+n);return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
+function dow(ds){var d=new Date(ds+"T00:00:00").getDay();return d===0?7:d;}
+function monday(ds){return addDays(ds,1-dow(ds));}
+function uid(){return Math.random().toString(36).slice(2,8);}
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function diffDays(a,b){return Math.round((new Date(b+"T00:00:00")-new Date(a+"T00:00:00"))/86400000);}
+
+function dfs(){
+  return {
+    cfg:{dayStart:"07:00",dayEnd:"23:00",lunchS:"12:00",lunchE:"13:30",buffer:0.8,revRatio:0.3,rate:1.0,examStart:"",examEnd:"",load:1.0},
+    courses:[
+      {id:"c1",name:"高等数学A",day:1,s:"08:00",e:"09:40",kind:"class"},
+      {id:"c2",name:"大学物理实验",day:3,s:"14:00",e:"15:40",kind:"lab"},
+      {id:"c3",name:"固定娱乐（运动/剧）",day:6,s:"19:00",e:"21:00",kind:"fun"}
+    ],
+    mats:[
+      {id:"m1",name:"高数强化 第3讲 中值定理",subject:"数学",type:"视频",range:"第3讲 P45-58",est:80,diff:"中",pri:"high",cat:"考研",done:0,raw:120,speed:1.5},
+      {id:"m2",name:"英语一 2019 Text1-2",subject:"英语",type:"习题",range:"真题 P12-15",est:40,diff:"中",pri:"mid",cat:"考研",done:0},
+      {id:"m3",name:"马原 第2章 唯物辩证法",subject:"政治",type:"看书",range:"P30-48",est:60,diff:"低",pri:"low",cat:"考研",done:0}
+    ],
+    tasks:[],mistakes:[],reviews:[],stages:{}
+  };
+}
+var S=dfs();
+function save(){/* 沙箱预览态：数据留在当前会话内存，可导出备份 */}
+var tab="setup",lastPlan=null,carryRev={},carryNew={},clearArmed=false,armedTimer=null;
+var VIEWS={setup:vSetup,sched:vSched,mats:vMats,plan:vPlan,today:vToday,review:vReview};
+
+/* ================= 调度引擎 ================= */
+function dayBlocks(d){
+  var st=T(S.cfg.dayStart),en=T(S.cfg.dayEnd);
+  var busy=S.courses.filter(function(c){return +c.day===+d;})
+    .map(function(c){return {s:T(c.s),e:T(c.e)};})
+    .sort(function(a,b){return a.s-b.s;});
+  var free=[],cur=st;
+  busy.forEach(function(b){if(b.s>cur)free.push([cur,Math.min(b.s,en)]);if(b.e>cur)cur=b.e;});
+  if(cur<en)free.push([cur,en]);
+  var ls=T(S.cfg.lunchS),le=T(S.cfg.lunchE);
+  return free.filter(function(f){return f[1]-f[0]>=20;}).map(function(f){
+    var ov=Math.max(0,Math.min(f[1],le)-Math.max(f[0],ls));
+    return {start:f[0],end:f[1],dur:f[1]-f[0],lunch:ov>=25};
+  });
+}
+function splitBlock(b){
+  var out=[],cur=b.start,contig=0;
+  while(b.end-cur>=20){
+    if(contig>=90){
+      var r=Math.min(10,b.end-cur-15);
+      if(r>0){out.push({start:cur,end:cur+r,rest:true,long:false});cur+=r;}
+      contig=0;
+      if(b.end-cur<20)break;
+    }
+    var cap=Math.min(b.end-cur,45);
+    out.push({start:cur,end:cur+cap,long:b.dur>=60,light:!!b.lunch,rest:false});
+    cur+=cap;contig+=cap;
+  }
+  return out;
+}
+function dayCapOf(d){
+  var free=dayBlocks(d).reduce(function(s,x){return s+x.dur;},0);
+  return Math.floor(free*S.cfg.buffer*S.cfg.load);
+}
+function weekCap(){
+  var st=monday(today()),t=0;
+  for(var i=0;i<7;i++)t+=dayCapOf(dow(addDays(st,i)));
+  return t;
+}
+function nearExam(){
+  if(!S.cfg.examStart)return 0;
+  var d=diffDays(today(),S.cfg.examStart);
+  return (d>=-3&&d<=14)?1:0;
+}
+function sc(p){
+  var s=PRIW[p.pri]*10;
+  if(p.cat==="期末")s+=15;
+  if(p.kind==="review")s+=8;
+  if(p.type==="错题")s+=4;
+  if(nearExam()){if(p.cat==="期末")s+=22;else s-=8;}
+  return s;
+}
+function stageOf(mid){return S.stages[mid]||{i:0,last:null};}
+function taskPool(){
+  var pool=[],E=[1,2,4,7,15],td=today();
+  S.mats.forEach(function(m){
+    var est=Math.max(15,Math.round(m.est*S.cfg.rate));
+    if(m.done<100){
+      pool.push({mid:m.id,title:m.name,subject:m.subject,kind:"new",type:m.type,cat:m.cat,pri:m.pri,
+        est:Math.max(15,Math.round(est*(1-m.done/100))),range:m.range});
+    }
+    var st=stageOf(m.id);
+    if(st.last){
+      var gap=E[Math.min(st.i,E.length-1)];
+      if(diffDays(st.last,td)>=gap)
+        pool.push({mid:m.id,title:"艾宾浩斯复习 · "+m.name,subject:m.subject,kind:"review",type:"复习",
+          cat:m.cat,pri:"mid",est:Math.max(10,Math.round(m.est*0.25)),range:m.range});
+    }
+  });
+  S.mistakes.forEach(function(x){
+    if(x.done)return;
+    if(!x.next||diffDays(today(),x.next)>=0)
+      pool.push({mid:"mk"+x.id,title:"错题复习 · "+x.kp,subject:x.subject,kind:"review",type:"错题",
+        cat:"考研",pri:x.wrong>=2?"high":"mid",est:15,range:x.book+" P"+x.page});
+  });
+  return pool.sort(function(a,b){return sc(b)-sc(a);});
+}
+function buildPlan(){
+  var start=monday(today()),days=[],totalCap=0;
+  for(var i=0;i<7;i++){
+    var date=addDays(start,i),d=dow(date),blocks=dayBlocks(d);
+    var free=blocks.reduce(function(s,b){return s+b.dur;},0);
+    var cap=Math.floor(free*S.cfg.buffer*S.cfg.load);
+    days.push({date:date,d:d,blocks:blocks,cap:cap});
+    totalCap+=cap;
+  }
+  var pool=taskPool();
+  var demand=pool.reduce(function(s,p){return s+p.est;},0);
+  var deferred=[];
+  while(pool.length&&pool.reduce(function(s,p){return s+p.est;},0)>totalCap){
+    pool.sort(function(a,b){return sc(a)-sc(b);});
+    deferred.push(pool.shift());
+  }
+  pool.sort(function(a,b){return sc(b)-sc(a);});
+  var qNew=pool.filter(function(p){return p.kind==="new";});
+  var qRev=pool.filter(function(p){return p.kind==="review";});
+  var tasks=[];
+  days.forEach(function(day){
+    var slots=[];
+    day.blocks.forEach(function(b){splitBlock(b).forEach(function(s){s.cur=s.start;slots.push(s);});});
+    slots.sort(function(a,b){return a.start-b.start;});
+    var newBudget=Math.round(day.cap*(1-S.cfg.revRatio));
+    var revBudget=day.cap-newBudget;
+    function place(item,remaining,heavy){
+      var order=slots.filter(function(s){return !s.rest&&s.end-s.cur>=10;});
+      order.sort(function(a,b){
+        var la=a.long?1:0,lb=b.long?1:0;
+        if(heavy)return lb-la||(b.end-b.cur)-(a.end-a.cur);
+        return la-lb||(b.end-b.cur)-(a.end-a.cur);
+      });
+      for(var i=0;i<order.length;i++){
+        var s=order[i];
+        if(heavy&&!s.long)continue;
+        var room=s.end-s.cur;
+        if(room<10)continue;
+        if(heavy&&room<20)continue;
+        var take=Math.min(room,remaining);
+        if(take<10)continue;
+        tasks.push({id:uid(),date:day.date,mid:item.mid,title:item.title,subject:item.subject,
+          kind:item.kind,type:item.type,cat:item.cat,pri:item.pri,range:item.range,
+          start:s.cur,end:s.cur+take,est:take,heavy:!!heavy,status:"none",actual:0,frag:!s.long,rest:false});
+        s.cur+=take;remaining-=take;
+        if(remaining<=0)return 0;
+      }
+      return remaining;
+    }
+    qRev.forEach(function(it){
+      var rem=carryRev[it.mid]||it.est;
+      if(rem<=0||revBudget<=0)return;
+      var before=rem;rem=place(it,rem,false);
+      revBudget-=(before-rem);carryRev[it.mid]=rem;
+    });
+    qNew.forEach(function(it){
+      var rem=carryNew[it.mid]||it.est;
+      if(rem<=0||newBudget<=0)return;
+      var before=rem;rem=place(it,rem,HEAVY.indexOf(it.type)>=0);
+      newBudget-=(before-rem);carryNew[it.mid]=rem;
+    });
+    qRev.forEach(function(it){
+      var rem=carryRev[it.mid];if(!rem||rem<=0)return;
+      carryRev[it.mid]=place(it,rem,false);
+    });
+    qNew.forEach(function(it){
+      var rem=carryNew[it.mid];if(!rem||rem<=0)return;
+      carryNew[it.mid]=place(it,rem,HEAVY.indexOf(it.type)>=0);
+    });
+    // 把休息槽插进任务序列
+    slots.forEach(function(s){
+      if(s.rest)tasks.push({id:uid(),date:day.date,title:"休息",rest:true,start:s.start,end:s.end,est:s.end-s.start});
+    });
+  });
+  tasks.sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:a.start-b.start;});
+  return {days:days,tasks:tasks,deferred:deferred,totalCap:totalCap,demand:demand};
+}
+function rebuildFromTasks(){
+  var start=monday(today()),days=[],totalCap=0;
+  for(var i=0;i<7;i++){
+    var date=addDays(start,i),d=dow(date),blocks=dayBlocks(d);
+    var cap=dayCapOf(d);
+    days.push({date:date,d:d,blocks:blocks,cap:cap});totalCap+=cap;
+  }
+  return {days:days,tasks:S.tasks,deferred:[],totalCap:totalCap,demand:S.tasks.filter(function(t){return !t.rest;}).reduce(function(s,t){return s+t.est;},0)};
+}
+
+/* ================= 组件 ================= */
+function card(t,b,tag){return '<div class="card"><h4>'+t+(tag?'<em>'+tag+'</em>':'')+'</h4>'+b+'</div>';}
+function ptag(p){var m={high:["t-high","高"],mid:["t-mid","中"],low:["t-low","低"]};var x=m[p]||m.mid;return '<span class="tag '+x[0]+'">'+x[1]+'</span>';}
+function ctag(c){return '<span class="tag '+(c==="期末"?"t-qm":"t-ky")+'">'+c+'</span>';}
+function toast(msg){var el=document.getElementById("kytoast");el.textContent=msg;el.style.opacity=1;clearTimeout(el._t);el._t=setTimeout(function(){el.style.opacity=0;},2400);}
+
+/* ================= 页面 ================= */
+function vSetup(){
+  var h='<div class="grid2">';
+  h+=card("作息与容量",
+    "<div class='row'><span>起床时间</span><span class='rv'><input type='time' data-k='cfg.dayStart' value='"+S.cfg.dayStart+"'></span></div>"
+    +"<div class='row'><span>最晚结束（23:00 硬上限）</span><span class='rv'><input type='time' max='23:00' data-k='cfg.dayEnd' value='"+S.cfg.dayEnd+"'></span></div>"
+    +"<div class='row'><span>午休开始</span><span class='rv'><input type='time' data-k='cfg.lunchS' value='"+S.cfg.lunchS+"'></span></div>"
+    +"<div class='row'><span>午休结束</span><span class='rv'><input type='time' data-k='cfg.lunchE' value='"+S.cfg.lunchE+"'></span></div>"
+    +"<div class='row'><span>每日缓冲（≤空闲×此比例）</span><span class='rv'><input type='number' step='0.05' min='0.5' max='1' data-k='cfg.buffer' value='"+S.cfg.buffer+"'></span></div>"
+  ,"规则 3 / 9");
+
+  h+=card("学习配比与负载",
+    "<div class='row'><span>艾宾浩斯复习占比</span><span class='rv'><input type='number' step='0.05' min='0' max='0.6' data-k='cfg.revRatio' value='"+S.cfg.revRatio+"'></span></div>"
+    +"<div class='row'><span>新内容占比（自动）</span><span class='rv'><b>"+Math.round((1-S.cfg.revRatio)*100)+"%</b></span></div>"
+    +"<div class='row'><span>本周负载系数</span><span class='rv'><b>"+S.cfg.load.toFixed(2)+"</b> <button class='btn sm' data-act='unload'>一键降载 −20%</button></span></div>"
+    +"<div class='row'><span>个人学习速率系数</span><span class='rv'><b>"+S.cfg.rate.toFixed(2)+"</b> <button class='btn sm' data-act='resetRate'>重置</button></span></div>"
+    +"<div class='muted' style='margin-top:6px'>系数由打卡的实际耗时自动校准：&gt;1 表示实际比预估更慢，下次规划自动放宽。</div>"
+  ,"规则 3 / 4 / 11 / 14");
+
+  h+=card("期末 / 考研双线模式",
+    "<div class='row'><span>期末考试周开始</span><span class='rv'><input type='date' data-k='cfg.examStart' value='"+(S.cfg.examStart||"")+"'></span></div>"
+    +"<div class='row'><span>期末考试周结束</span><span class='rv'><input type='date' data-k='cfg.examEnd' value='"+(S.cfg.examEnd||"")+"'></span></div>"
+    +"<div class='muted' style='margin-top:6px'>考试周前 14 天内自动上调【期末任务】权重、下调考研任务量；结束后自动回到考研为主。</div>"
+    +(nearExam()?"<div class='warnbox' style='margin:8px 0 0'>当前处于期末冲刺窗口：期末任务已提权，考研重任务自动减量。</div>":"")
+  ,"规则 12");
+
+  h+=card("数据备份（沙箱预览态不落盘）",
+    "<div class='muted' style='margin-bottom:7px'>预览环境限制无法本地持久化。请用下面的备份框保存 JSON，下次粘贴回来即可恢复全部数据。</div>"
+    +"<div class='flex'><button class='btn pri' data-act='export'>导出到下方备份框</button>"
+    +"<button class='btn' data-act='import'>从备份框恢复</button>"
+    +"<button class='btn' data-act='demo'>载入示例数据</button>"
+    +"<button class='btn warn' data-act='clear'>"+(clearArmed?"确认清空？再点一次":"清空全部数据")+"</button></div>"
+    +"<textarea id='ioBox' rows='4' placeholder='导出后这里会出现 JSON；恢复时把 JSON 粘贴到这里再点恢复' style='margin-top:8px;font-family:ui-monospace,monospace;font-size:11px'></textarea>");
+
+  h+="</div>";
+  return h;
+}
+
+function vSched(){
+  var h="",km={class:["上课","#2563eb"],lab:["实验","#7c3aed"],fun:["娱乐·绝不排课","#f97316"]};
+  h+=card("新增固定时段","<div class='flex'>"
+    +"<input type='text' id='cName' placeholder='名称，如 高等数学A / 篮球' style='flex:2;min-width:140px'>"
+    +"<select id='cDay'><option value='1'>周一</option><option value='2'>周二</option><option value='3'>周三</option><option value='4'>周四</option><option value='5'>周五</option><option value='6'>周六</option><option value='7'>周日</option></select>"
+    +"<input type='time' id='cS' value='08:00'><input type='time' id='cE' value='09:40'>"
+    +"<select id='cKind'><option value='class'>上课</option><option value='lab'>实验</option><option value='fun'>娱乐时段</option></select>"
+    +"<button class='btn pri' data-act='addCourse'>添加</button></div>"
+    +"<div class='muted' style='margin-top:7px'>上课 / 实验 / 娱乐三类全部视为【不可安排】；娱乐时段先被预留，剩余时间才分配学习任务。</div>","规则 1 / 13");
+  var wd=["周一","周二","周三","周四","周五","周六","周日"];
+  for(var d=1;d<=7;d++){
+    var list=S.courses.filter(function(c){return +c.day===d;}).sort(function(a,b){return T(a.s)-T(b.s);});
+    var body=list.length?list.map(function(c){
+      return "<div class='it'><span><b>"+esc(c.name)+"</b> <span class='tag' style='background:"+km[c.kind][1]+"22;color:"+km[c.kind][1]+"'>"+km[c.kind][0]+"</span> <span class='mk'>"+c.s+" – "+c.e+"</span></span>"
+        +"<button class='btn sm warn' data-act='delCourse' data-id='"+c.id+"'>删除</button></div>";
+    }).join(""):"<div class='muted'>无固定时段</div>";
+    var blocks=dayBlocks(d),free=blocks.reduce(function(s,b){return s+b.dur;},0);
+    h+=card(wd[d-1]+" · 空闲 "+fmtH(free),"<div style='display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px'>"
+      +blocks.map(function(b){return "<span class='tag "+(b.dur>=60?"t-new":"t-frag")+"'>"+M(b.start)+"-"+M(b.end)+" "+(b.dur>=60?"长":"碎片")+(b.lunch?"·午休":"")+"</span>";}).join("")
+      +"</div>"+body);
+  }
+  return h;
+}
+
+function vMats(){
+  var h="";
+  h+=card("录入资料（纯文字 / 语音口述）",
+    "<div class='flex'>"
+    +"<input type='text' id='mName' placeholder='资料名称，如 高数强化第3讲 中值定理' style='flex:2;min-width:170px'>"
+    +"<button class='btn sm' data-act='voice' data-target='mName'>🎤 语音</button>"
+    +"<input type='text' id='mSub' placeholder='科目' style='width:76px'>"
+    +"<select id='mType'><option>新课</option><option>看书</option><option>视频</option><option>习题</option><option>大题</option><option>背诵</option><option>刷题</option></select>"
+    +"<select id='mCat'><option>考研</option><option>期末</option></select>"
+    +"<select id='mPri'><option value='high'>高优先</option><option value='mid' selected>中优先</option><option value='low'>低优先</option></select>"
+    +"</div>"
+    +"<div class='flex' style='margin-top:6px'>"
+    +"<input type='text' id='mRange' placeholder='范围：第3讲 P45-58 / 真题第5题' style='flex:2;min-width:170px'>"
+    +"<input type='number' id='mRaw' placeholder='视频总时长min' style='width:104px'>"
+    +"<select id='mSpeed' title='倍速'><option value='1'>1x</option><option value='1.25'>1.25x</option><option value='1.5' selected>1.5x</option><option value='2'>2x</option></select>"
+    +"<input type='number' id='mEst' placeholder='预估min' style='width:86px'>"
+    +"<select id='mDiff'><option>低</option><option selected>中</option><option>高</option></select>"
+    +"<button class='btn pri' data-act='addMat'>加入资料库</button></div>"
+    +"<div class='muted' style='margin-top:7px'>视频填「总时长 + 倍速」自动折算；书本按页码、习题按题量估时长，填了总时长会覆盖预估分钟。</div>","规则 2");
+
+  if(!S.mats.length)return h+card("资料库","<div class='empty'>还没有资料，先在上方录入本周要学的内容</div>");
+  ["期末","考研"].forEach(function(cat){
+    var arr=S.mats.filter(function(m){return m.cat===cat;});
+    if(!arr.length)return;
+    var body=arr.map(function(m){
+      return "<div class='it'><span style='flex:1;min-width:0'>"
+        +"<b>"+esc(m.name)+"</b> "+ptag(m.pri)+" <span class='tag t-frag'>"+esc(m.type)+"</span>"
+        +"<div class='mk'>"+esc(m.subject)+" · "+esc(m.range||"—")+" · 预估 "+m.est+"min · 难度"+m.diff+"</div>"
+        +"<div class='dbar'><i style='width:"+Math.min(100,m.done)+"%'></i></div></span>"
+        +"<span class='rv'><span class='mk'>"+Math.round(m.done)+"%</span>"
+        +"<button class='btn sm' data-act='matDone' data-id='"+m.id+"'>完成</button>"
+        +"<button class='btn sm warn' data-act='delMat' data-id='"+m.id+"'>删</button></span></div>";
+    }).join("");
+    h+=card((cat==="期末"?"【期末任务】":"【考研备考任务】")+" · "+arr.length+" 条",body);
+  });
+  return h;
+}
+
+function vPlan(){
+  var h="",cap=weekCap();
+  h+=card("本周容量与生成","<div class='flex' style='justify-content:space-between'>"
+    +"<div><div class='muted'>本周可用学习上限（已扣课表、娱乐、午休、23:00 后）</div><b style='font-size:16px'>"+fmtH(cap)+"</b></div>"
+    +"<button class='btn pri' data-act='genPlan'>重新生成本周计划</button></div>"
+    +"<div class='muted' style='margin-top:8px'>生成顺序：预留娱乐 → 算空闲 → 长时段(≥60)/碎片(20-59) → 每日上限=空闲×80% → 70%新内容+30%艾宾浩斯复习 → 重任务只进长时段 → 连续 90min 插 10min 休息 → 超载删低优先级。</div>","规则 1/3/8/9/13/14");
+
+  if(!lastPlan&&!S.tasks.length)return h+card("尚未生成","<div class='empty'>点击上方「重新生成本周计划」，系统会按课表和资料自动排表</div>");
+  if(!lastPlan)lastPlan=rebuildFromTasks();
+
+  if(lastPlan.deferred&&lastPlan.deferred.length){
+    h+="<div class='warnbox'><b>过载保护已触发</b>：本周需求 "+fmtH(lastPlan.demand)+" ＞ 上限 "+fmtH(lastPlan.totalCap)
+      +"，已自动延后 "+lastPlan.deferred.length+" 个低优先级任务（不压缩、不强排）：<br>"
+      +lastPlan.deferred.slice(0,6).map(function(d){return "· "+esc(d.title)+"（"+d.est+"min）";}).join("<br>")+"</div>";
+  }else{
+    h+="<div class='okbox'>本周负荷在可承受范围内，未触发过载删减。</div>";
+  }
+  var wd=["周一","周二","周三","周四","周五","周六","周日"];
+  lastPlan.days.forEach(function(day){
+    var ts=lastPlan.tasks.filter(function(t){return t.date===day.date;}).sort(function(a,b){return a.start-b.start;});
+    var used=ts.filter(function(t){return !t.rest;}).reduce(function(s,t){return s+t.est;},0);
+    var pct=day.cap?Math.min(100,Math.round(used/day.cap*100)):0;
+    var body=ts.length?ts.map(function(t){
+      if(t.rest)return "<div class='tsk'><span class='tm'>"+M(t.start)+"-"+M(t.end)+"</span><span class='tag t-rest'>休息</span><span class='muted'>精力保护 · 连续 90min 后强制缓冲</span></div>";
+      return "<div class='tsk'><span class='tm'>"+M(t.start)+"-"+M(t.end)+"</span>"
+        +"<span class='tag "+(t.kind==="review"?"t-rev":"t-new")+"'>"+(t.kind==="review"?"复习":"新学")+"</span>"
+        +"<span style='flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>"+esc(t.title)+"</span>"
+        +(t.frag?"<span class='tag t-frag'>碎片</span>":"")+ptag(t.pri)+ctag(t.cat)
+        +"<span class='muted'>"+t.est+"min</span></div>";
+    }).join(""):"<div class='muted'>今日未排任务（休息日或容量已满）</div>";
+    h+="<div class='day'><div class='dayhd'><b>"+wd[day.d-1]+" "+day.date.slice(5)+"</b>"
+      +"<span class='muted'>已排 "+fmtH(used)+" / 上限 "+fmtH(day.cap)+"（"+pct+"%）</span></div>"
+      +"<div class='dbar'><i style='width:"+pct+"%'></i></div>"+body+"</div>";
+  });
+  return h;
+}
+
+function vToday(){
+  var td=today();
+  var ts=S.tasks.filter(function(t){return t.date===td&&!t.rest;}).sort(function(a,b){return a.start-b.start;});
+  var wk=S.tasks.filter(function(t){return !t.rest;});
+  var rate=wk.length?Math.round(wk.filter(function(t){return t.status==="done";}).length/wk.length*100):0;
+  var todayRate=ts.length?Math.round(ts.filter(function(t){return t.status==="done";}).length/ts.length*100):0;
+  var mins=wk.filter(function(t){return t.status&&t.status!=="none";}).reduce(function(s,t){return s+(t.actual||t.est);},0);
+
+  var h="<div class='stat'>"
+    +"<div class='statbox'><b>"+todayRate+"%</b><span>今日完成率</span></div>"
+    +"<div class='statbox'><b>"+rate+"%</b><span>本周完成率</span></div>"
+    +"<div class='statbox'><b>"+fmtH(mins)+"</b><span>本周实际投入</span></div>"
+    +"<div class='statbox'><b>"+S.cfg.rate.toFixed(2)+"</b><span>速率校准系数</span></div></div>";
+
+  if(rate>0&&rate<50){
+    h+="<div class='warnbox'>完成率偏低只是数据，不是评价。常见客观原因：预估偏乐观（系数 "+S.cfg.rate.toFixed(2)+"）、临时课业冲突、时间被切碎。可以先把本周负载降 20%，稳住节奏再谈优化。</div>";
+  }
+  if(!ts.length){
+    return h+card("今日任务","<div class='empty'>今天没有排任务。去「每周规划」生成计划，或把它当作休息日。</div>");
+  }
+  var body=ts.map(function(t){
+    var st=t.status||"none";
+    return "<div class='it' style='align-items:flex-start'><span style='flex:1;min-width:0'>"
+      +"<b>"+esc(t.title)+"</b> "+ptag(t.pri)+ctag(t.cat)+" <span class='tag "+(t.kind==="review"?"t-rev":"t-new")+"'>"+(t.kind==="review"?"复习":"新学")+"</span>"
+      +"<div class='mk'>"+M(t.start)+"–"+M(t.end)+" · 预估 "+t.est+"min"+(t.frag?" · 碎片时段":"")+(st!=="none"?" · 已打卡":"")+"</div>"
+      +"<div class='flex' style='margin-top:5px'>"
+      +"<button class='btn sm "+(st==="done"?"grn":"")+"' data-act='log' data-id='"+t.id+"' data-st='done'>完成</button>"
+      +"<button class='btn sm "+(st==="part"?"pri":"")+"' data-act='log' data-id='"+t.id+"' data-st='part'>部分完成</button>"
+      +"<button class='btn sm "+(st==="miss"?"warn":"")+"' data-act='log' data-id='"+t.id+"' data-st='miss'>未完成</button>"
+      +"<span class='mk'>实际</span><input type='number' id='act-"+t.id+"' value='"+(t.actual||"")+"' placeholder='"+t.est+"' style='width:58px'><span class='mk'>min</span>"
+      +"</div></span></div>";
+  }).join("");
+  return h+card("今日任务清单 · "+td,
+    "<div class='flex' style='justify-content:flex-end;margin-bottom:6px'><button class='btn sm' data-act='unload'>本周降载 20%</button></div>"+body,"规则 4 / 11");
+}
+
+function vReview(){
+  var td=today(),h="";
+  var todayTs=S.tasks.filter(function(t){return t.date===td&&!t.rest&&t.status&&t.status!=="none";});
+  h+=card("今日复盘 · 问答式查漏补缺",
+    "<div class='muted' style='margin-bottom:8px'>不是总结，是提问。系统按你今天打卡的任务与章节生成问题，你口述回答后保存——答不上来的就是明天的重点。</div>"
+    +"<div class='flex'><button class='btn pri' data-act='genQA'>根据今日任务生成问题</button>"
+    +"<button class='btn' data-act='voice' data-target='qaVoice'>🎤 语音口述</button></div>"
+    +"<textarea id='qaVoice' rows='2' placeholder='对着这里口述，识别结果会自动追加……' style='margin-top:8px'></textarea>","规则 5");
+
+  var rv=S.reviews.filter(function(r){return r.date===td;})[0];
+  if(rv){
+    var body=rv.items.map(function(it,i){
+      return "<div class='qa'><div class='q'>Q"+(i+1)+". "+esc(it.q)+"</div>"
+        +"<div class='mk' style='margin-bottom:4px'>类型："+esc(it.t)+" · 来源："+esc(it.src)+"</div>"
+        +"<textarea rows='2' data-ans='"+rv.id+"' data-i='"+i+"' placeholder='口述要点；答不出的直接写「不会」/「卡住」'>"+esc(it.a||"")+"</textarea></div>";
+    }).join("");
+    h+=card("本次复盘 · "+rv.date,body+"<div class='flex' style='justify-content:flex-end'><button class='btn pri' data-act='saveQA' data-id='"+rv.id+"'>保存复盘记录</button></div>","规则 5");
+  }else if(!todayTs.length){
+    h+="<div class='empty'>今天还没有打卡记录。先打卡，再来复盘。</div>";
+  }
+
+  h+=card("错题索引（只记知识点，不存题目原文）",
+    "<div class='flex'><input type='text' id='kSub' placeholder='科目' style='width:70px'>"
+    +"<input type='text' id='kBook' placeholder='书籍名称' style='flex:1;min-width:100px'>"
+    +"<input type='text' id='kKp' placeholder='知识点名称' style='flex:1;min-width:110px'>"
+    +"<input type='number' id='kPage' placeholder='页码' style='width:66px'>"
+    +"<button class='btn pri' data-act='addMk'>录入</button></div><div class='sep'></div>"
+    +(S.mistakes.map(function(x){
+      var due=!x.next||diffDays(today(),x.next)>=0;
+      return "<div class='it'><span><b>"+esc(x.kp)+"</b> <span class='mk'>"+esc(x.subject)+" · "+esc(x.book)+" P"+esc(x.page)+"</span>"
+        +(x.wrong>=2?" <span class='tag t-high'>薄弱点 已错"+x.wrong+"次</span>":"")
+        +(due?" <span class='tag t-mid'>今日到期</span>":" <span class='mk'>下次 "+esc(x.next||"")+"</span>")
+        +"</span><span class='rv'>"
+        +"<button class='btn sm "+(due?"pri":"")+"' data-act='mkAgain' data-id='"+x.id+"'>又错了</button>"
+        +"<button class='btn sm grn' data-act='mkOk' data-id='"+x.id+"'>掌握</button>"
+        +"<button class='btn sm warn' data-act='delMk' data-id='"+x.id+"'>删</button></span></div>";
+    }).join("")||"<div class='muted'>还没有错题索引</div>"),"规则 10");
+
+  if(S.reviews.length){
+    h+=card("历史复盘","<div style='max-height:130px;overflow:auto'>"+S.reviews.slice().reverse().slice(0,10).map(function(r){
+      return "<div class='it'><span class='mk'>"+r.date+" · "+r.items.length+" 个问题</span><span class='mk'>已答 "+r.items.filter(function(x){return x.a&&x.a.length>1;}).length+"</span></div>";
+    }).join("")+"</div>");
+  }
+  return h;
+}
+
+/* ================= 复盘问答生成 ================= */
+function makeQ(t){
+  var src=(t.subject||"")+" · "+(t.range||t.title),q;
+  if(t.type==="错题")q="这道错题（"+t.title+"）上次错在哪一步？正确思路的第一步是什么？";
+  else if(t.kind==="review")q="不看资料，复述「"+t.title+"」的核心要点，能说出几个？";
+  else if(t.type==="新课"||t.type==="视频")q="用自己的话讲一遍「"+t.title+"」的主线：它解决什么问题、关键结论是什么、推导哪一步最容易卡？";
+  else if(t.type==="大题")q="「"+t.title+"」这道大题的破题第一步是什么？题眼在哪个条件上？";
+  else if(t.type==="看书")q="「"+t.title+"」这一节出现了哪几个关键定义？各举一个例子。";
+  else if(t.type==="背诵")q="闭眼复述「"+t.title+"」的三个要点，说不出的立刻标出来。";
+  else q="「"+t.title+"」做错的题属于哪类题型？同类题的通用解法是什么？";
+  return {q:q,t:t.type+(t.kind==="review"?"·复习":""),src:src,a:""};
+}
+
+/* ================= 动作 ================= */
+var ACT={
+  go:function(id){tab=id;render();},
+  addCourse:function(){
+    var n=document.getElementById("cName").value.trim();
+    if(!n){toast("先填名称");return;}
+    S.courses.push({id:uid(),name:n,day:+document.getElementById("cDay").value,
+      s:document.getElementById("cS").value,e:document.getElementById("cE").value,
+      kind:document.getElementById("cKind").value});
+    render();toast("已添加固定时段");
+  },
+  delCourse:function(id){S.courses=S.courses.filter(function(c){return c.id!==id;});render();},
+  addMat:function(){
+    var n=document.getElementById("mName").value.trim();
+    if(!n){toast("先填资料名称");return;}
+    var raw=+document.getElementById("mRaw").value||0;
+    var sp=+document.getElementById("mSpeed").value||1;
+    var est=+document.getElementById("mEst").value||0;
+    if(raw>0)est=Math.ceil(raw/sp);
+    if(!est)est=30;
+    S.mats.push({id:uid(),name:n,subject:document.getElementById("mSub").value||"未分类",
+      type:document.getElementById("mType").value,range:document.getElementById("mRange").value,
+      est:est,diff:document.getElementById("mDiff").value,pri:document.getElementById("mPri").value,
+      cat:document.getElementById("mCat").value,done:0,raw:raw,speed:sp});
+    render();toast("已入库，预估 "+est+" 分钟");
+  },
+  delMat:function(id){S.mats=S.mats.filter(function(m){return m.id!==id;});render();},
+  matDone:function(id){var m=S.mats.filter(function(x){return x.id===id;})[0];if(m){m.done=100;render();}},
+  genPlan:function(){
+    carryRev={};carryNew={};
+    S.tasks=S.tasks.filter(function(t){return t.status&&t.status!=="none";});
+    lastPlan=buildPlan();
+    S.tasks=lastPlan.tasks.concat(S.tasks);
+    tab="plan";render();
+    toast("已生成 7 天计划"+(lastPlan.deferred.length?"，延后 "+lastPlan.deferred.length+" 项":""));
+  },
+  log:function(id,btn){
+    var t=S.tasks.filter(function(x){return x.id===id;})[0];
+    if(!t)return;
+    var inp=document.getElementById("act-"+id);
+    var act=+((inp&&inp.value)||t.est)||t.est;
+    t.status=btn.dataset.st;t.actual=act;
+    if(t.status!=="miss"&&act>0){
+      var r=act/Math.max(10,t.est);
+      S.cfg.rate=Math.min(2,Math.max(0.6,+(S.cfg.rate*0.8+r*0.2).toFixed(3)));
+    }
+    var m=S.mats.filter(function(x){return x.id===t.mid;})[0];
+    if(m){
+      var add=t.status==="done"?100:t.status==="part"?50:0;
+      m.done=Math.min(100,(m.done||0)+add*(t.est/Math.max(20,m.est)));
+      if(m.done>=99)S.stages[m.id]={i:(stageOf(m.id).i||0)+1,last:today()};
+    }
+    render();
+    toast(t.status==="done"?"已打卡 · 速率系数更新为 "+S.cfg.rate.toFixed(2):"已记录");
+  },
+  unload:function(){
+    S.cfg.load=Math.max(0.6,+(S.cfg.load-0.2).toFixed(2));
+    lastPlan=null;render();toast("本周负载已降至 "+S.cfg.load.toFixed(2)+"，重新生成后生效");
+  },
+  resetRate:function(){S.cfg.rate=1;render();toast("速率系数已重置为 1.00");},
+  export:function(){
+    var box=document.getElementById("ioBox");
+    box.value=JSON.stringify(S);
+    try{
+      var b=new Blob([box.value],{type:"application/json"});
+      var a=document.createElement("a");
+      a.href=URL.createObjectURL(b);a.download="kaoyan-backup-"+today()+".json";
+      document.body.appendChild(a);a.click();a.remove();
+    }catch(e){}
+    toast("已导出到备份框（也可复制保存）");
+  },
+  import:function(){
+    var v=document.getElementById("ioBox").value.trim();
+    if(!v){toast("备份框是空的");return;}
+    try{
+      var o=JSON.parse(v);
+      var base=dfs();
+      Object.keys(base).forEach(function(k){if(o[k]!==undefined)base[k]=o[k];});
+      S=base;lastPlan=null;render();toast("数据已恢复");
+    }catch(e){toast("JSON 解析失败，请检查是否粘贴完整");}
+  },
+  demo:function(){S=dfs();lastPlan=null;render();toast("已载入示例数据");},
+  clear:function(){
+    if(!clearArmed){
+      clearArmed=true;
+      clearTimeout(armedTimer);
+      armedTimer=setTimeout(function(){clearArmed=false;if(tab==="setup")render();},4000);
+      render();return;
+    }
+    clearArmed=false;
+    S=dfs();S.courses=[];S.mats=[];S.tasks=[];S.reviews=[];S.mistakes=[];S.stages={};
+    lastPlan=null;render();toast("已清空");
+  },
+  genQA:function(){
+    var td=today();
+    var ts=S.tasks.filter(function(t){return t.date===td&&!t.rest&&t.status&&t.status!=="none";});
+    if(!ts.length){toast("今天还没有打卡任务，先打卡再来复盘");return;}
+    var items=ts.map(makeQ);
+    var old=S.reviews.filter(function(r){return r.date===td;})[0];
+    if(old)old.items=items;else S.reviews.push({id:uid(),date:td,items:items});
+    render();toast("已生成 "+items.length+" 个复盘问题");
+  },
+  saveQA:function(id){
+    var rv=S.reviews.filter(function(r){return r.id===id;})[0];
+    if(!rv)return;
+    var nodes=document.querySelectorAll("[data-ans='"+id+"']");
+    for(var i=0;i<nodes.length;i++){
+      var idx=+nodes[i].dataset.i;
+      if(rv.items[idx])rv.items[idx].a=nodes[i].value;
+    }
+    toast("复盘已保存");
+  },
+  addMk:function(){
+    var kp=document.getElementById("kKp").value.trim();
+    if(!kp){toast("先填知识点名称");return;}
+    S.mistakes.push({id:uid(),subject:document.getElementById("kSub").value||"未分类",
+      book:document.getElementById("kBook").value||"—",kp:kp,
+      page:document.getElementById("kPage").value||"—",wrong:1,next:addDays(today(),1),done:false});
+    render();toast("已录入，明天提醒复习");
+  },
+  mkAgain:function(id){
+    var x=S.mistakes.filter(function(m){return m.id===id;})[0];
+    if(x){x.wrong=(x.wrong||1)+1;x.next=addDays(today(),Math.max(1,Math.ceil(3/x.wrong)));render();
+      toast("已标记薄弱点（第 "+x.wrong+" 次），复习频次提高");}
+  },
+  mkOk:function(id){
+    var x=S.mistakes.filter(function(m){return m.id===id;})[0];
+    if(x){x.next=addDays(today(),x.wrong>=2?2:4);render();toast("已掌握，下次复习 "+x.next);}
+  },
+  delMk:function(id){S.mistakes=S.mistakes.filter(function(m){return m.id!==id;});render();},
+  voice:function(id,btn){
+    var tgt=btn.dataset.target;
+    var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SR){toast("当前浏览器不支持语音识别，请用 Chrome/Edge，或直接文字输入");return;}
+    try{
+      var r=new SR();r.lang="zh-CN";r.interimResults=false;
+      btn.textContent="🎤 识别中…";
+      r.onresult=function(e){
+        var txt=e.results[0][0].transcript,el=document.getElementById(tgt);
+        if(el)el.value=(el.value?el.value+" ":"")+txt;
+      };
+      r.onerror=function(){btn.textContent="🎤 语音";};
+      r.onend=function(){btn.textContent="🎤 语音";};
+      r.start();
+    }catch(e){btn.textContent="🎤 语音";}
+  }
+};
+
+/* ================= 渲染 ================= */
+function head(){
+  document.getElementById("kyhead").innerHTML=
+    "<span class='hchip'>本周上限 <b>"+fmtH(weekCap())+"</b></span>"
+    +"<span class='hchip'>速率 <b>"+S.cfg.rate.toFixed(2)+"</b></span>"
+    +"<span class='hchip'>负载 <b>"+S.cfg.load.toFixed(2)+"</b></span>"
+    +"<span class='hchip'>"+today()+" 周"+dow(today())+"</span>";
+}
+function render(){
+  document.getElementById("kytabs").innerHTML=TABS.map(function(t){
+    return "<button class='tab"+(tab===t.k?" on":"")+"' data-act='go' data-id='"+t.k+"'>"+t.n+"</button>";
+  }).join("");
+  document.getElementById("kyview").innerHTML=VIEWS[tab]();
+  head();
+}
+document.getElementById("ky").addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]");
+  if(!b)return;
+  if(b.tagName==="SELECT"||b.tagName==="INPUT")return;
+  var a=b.dataset.act;
+  if(ACT[a]){e.preventDefault();ACT[a](b.dataset.id,b);}
+});
+document.getElementById("ky").addEventListener("change",function(e){
+  var el=e.target,k=el.dataset.k;
+  if(!k)return;
+  var p=k.split("."),v=el.value;
+  if(p[1]==="buffer"||p[1]==="revRatio"||p[1]==="load"||p[1]==="rate")v=+v;
+  S[p[0]][p[1]]=v;
+  head();
+});
+render();
+})();
+</script>
